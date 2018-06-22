@@ -4,7 +4,7 @@
       <MainHeader :root="currentRouter.root" />
       <div class="layout">
         <MainSider :currentRouter="currentRouter" />
-        <Layout>
+        <Layout class="rightLayout">
           <Header class="contentHeader">
             <Breadcrumb class="bread">
               <BreadcrumbItem v-for="item in breadList" :key="item.name">{{item.title}}</BreadcrumbItem>
@@ -34,6 +34,9 @@
   overflow-x: hidden;
   border-right: 1px solid #d7dde4;
 }
+.rightLayout {
+  overflow: hidden;
+}
 .contentHeader {
   background-color: #fff;
   box-shadow: 0 2px 3px 2px rgba(0, 0, 0, 0.1);
@@ -46,6 +49,7 @@
 }
 .content {
   padding: 10px;
+  overflow-x: hidden;
 }
 .main-enter-active,
 .main-leave-active {

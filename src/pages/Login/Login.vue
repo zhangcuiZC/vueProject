@@ -9,7 +9,7 @@
         <div class="loginInner">
           <Form ref="loginForm" :model="loginFields" :rules="loginRules">
             <FormItem prop="user">
-              <Input type="text" v-model="loginFields.user" placeholder="用户名">
+              <Input type="text" v-model="loginFields.user" placeholder="账号">
               <Icon type="ios-person-outline" slot="prepend"></Icon>
               </Input>
             </FormItem>
@@ -49,11 +49,11 @@
     justify-content: space-between;
     width: 360px;
     height: 300px;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 0 10px #666;
     .logoOuter {
       height: 70px;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.5);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -97,7 +97,7 @@ export default {
         user: [
           {
             required: true,
-            message: "请输入用户名",
+            message: "请输入账号",
             trigger: "blur"
           }
         ],

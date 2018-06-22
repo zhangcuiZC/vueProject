@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-import store from "@/store";
 import { getCookie } from "@/utils/cookie";
 import About from "@/components/About";
 import MainLayout from "../layouts/MainLayout.vue";
