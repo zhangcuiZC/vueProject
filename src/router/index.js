@@ -4,6 +4,8 @@ import store from "@/store";
 import { getCookie } from "@/utils/cookie";
 import About from "@/components/About";
 import MainLayout from "../layouts/MainLayout.vue";
+import NotFound from "../pages/Error/NotFound.vue";
+import Login from "../pages/Login/Login.vue";
 
 import content from "./content";
 
@@ -29,11 +31,11 @@ const router = new Router({
     },
     {
       path: "/login",
-      component: { template: "<h1>Login Page</h1>" }
+      component: Login
     },
     {
       path: "*",
-      component: { template: "<h1>Page Not Found</h1>" }
+      component: NotFound
     }
   ]
 });

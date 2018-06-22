@@ -1,14 +1,9 @@
 <template>
   <div class="header">
-    <div class="logo">
-      <!-- <img src="../assets/logo.png"> -->
-      <Icon class="logoIcon" type="cube"></Icon>
-      <div class="logoBox">
-        <p class="logoTitle">数据分析平台</p>
-        <p class="logoText">Data Analysis Platform</p>
-      </div>
-
+    <div class="logoBox">
+      <Logo/>
     </div>
+
     <div class="menu">
       <Menu mode="horizontal" theme="light" :active-name="root" class="headerMenu">
         <MenuItem v-for="item in headerMenuList" :name="item.name" :key="item.name">
@@ -19,14 +14,15 @@
         </MenuItem>
       </Menu>
     </div>
-    <div class="icon">
-      <span>欢迎，超级管理员</span>
-      <Dropdown>
-        <Icon type="gear-b"></Icon>
+    <div class="userInfo">
+      <Dropdown placement="bottom-end">
+        <span>欢迎，超级管理员
+          <Icon class="icon" type="android-menu"></Icon>
+        </span>
         <DropdownMenu slot="list">
           <DropdownItem>
             <Icon type="edit"></Icon> 修改密码</DropdownItem>
-          <DropdownItem>
+          <DropdownItem @click.native="logout">
             <Icon type="log-out"></Icon> 退出登录</DropdownItem>
         </DropdownMenu>
       </Dropdown>
@@ -44,38 +40,11 @@
   left: 0;
   z-index: 10;
   background-color: #2b83f9;
-  background-image: linear-gradient(143deg, #2945cb 20%, #2b83f9 81%, #3a9dff);
+  background-image: linear-gradient(90deg, #2945cb 20%, #2b83f9 81%, #3a9dff);
 }
-.logo {
-  width: 200px;
-  height: 100%;
+.logoBox {
   float: left;
-  position: relative;
-  padding-left: 20px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  .logoIcon {
-    color: #fff;
-    font-size: 40px;
-    margin-right: 10px;
-  }
-  .logoBox {
-    font-size: 12px;
-    display: inline-block;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    .logoTitle {
-      font-size: 14px;
-    }
-    .logoText {
-      color: #fff;
-      display: inline-block;
-      font-weight: lighter;
-    }
-  }
+  height: 100%;
 }
 img {
   position: absolute;
@@ -92,18 +61,22 @@ img {
   height: 100%;
   overflow: hidden;
 }
-.icon {
+.userInfo {
   height: 100%;
   float: right;
-  font-size: 22px;
+  font-size: 14px;
   color: #fff;
   margin-right: 10px;
   display: flex;
   align-items: center;
-}
-.icon span {
-  font-size: 14px;
-  margin-right: 10px;
+  .icon {
+    font-size: 24px;
+    margin-left: 10px;
+  }
+  span {
+    display: flex;
+    align-items: center;
+  }
 }
 </style>
 <style lang="less">
@@ -143,14 +116,28 @@ import {
   DropdownItem
 } from "iview";
 import headerMenuList from "../config/headerMenu.js";
+import Logo from "../components/Logo";
 export default {
   name: "MainHeader",
-  components: { Menu, Icon, MenuItem, Dropdown, DropdownMenu, DropdownItem },
+  components: {
+    Menu,
+    Icon,
+    MenuItem,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    Logo
+  },
   data() {
     return {
       headerMenuList
     };
   },
-  props: ["root"]
+  props: ["root"],
+  methods: {
+    logout: function() {
+      this.$router.push({ path: "/login" });
+    }
+  }
 };
 </script>

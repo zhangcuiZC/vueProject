@@ -6,8 +6,10 @@ import router from "./router";
 import store from "./store";
 import "iview/dist/styles/iview.css";
 import "./theme/index.less";
+import { Message } from "iview";
 
 Vue.config.productionTip = false;
+Vue.prototype.$Message = Message;
 
 /* eslint-disable no-new */
 new Vue({

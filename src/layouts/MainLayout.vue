@@ -1,23 +1,25 @@
 <template>
-  <div>
-    <MainHeader :root="currentRouter.root" />
-    <div class="layout">
-      <MainSider :currentRouter="currentRouter" />
-      <Layout>
-        <Header class="contentHeader">
-          <Breadcrumb class="bread">
-            <BreadcrumbItem v-for="item in breadList" :key="item.name">{{item.title}}</BreadcrumbItem>
-          </Breadcrumb>
-        </Header>
-        <Content class="content">
-          <router-view></router-view>
-        </Content>
-      </Layout>
+  <transition name="main">
+    <div class="main">
+      <MainHeader :root="currentRouter.root" />
+      <div class="layout">
+        <MainSider :currentRouter="currentRouter" />
+        <Layout>
+          <Header class="contentHeader">
+            <Breadcrumb class="bread">
+              <BreadcrumbItem v-for="item in breadList" :key="item.name">{{item.title}}</BreadcrumbItem>
+            </Breadcrumb>
+          </Header>
+          <Content class="content">
+            <router-view></router-view>
+          </Content>
+        </Layout>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 .layout {
   height: 100vh;
   padding-top: 70px;
@@ -44,6 +46,14 @@
 }
 .content {
   padding: 10px;
+}
+.main-enter-active,
+.main-leave-active {
+  transition: transform 0.4s;
+}
+.main-enter,
+.main-leave-to {
+  transform: translateY(100vh);
 }
 </style>
 
