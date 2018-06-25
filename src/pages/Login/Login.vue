@@ -7,7 +7,7 @@
           <p class="plz">请登录</p>
         </div>
         <div class="loginInner">
-          <Form ref="loginForm" :model="loginFields" :rules="loginRules">
+          <Form ref="loginForm" :model="loginFields" :rules="loginRules" v-show="!isUseDD" class="loginForm">
             <FormItem prop="user">
               <Input type="text" v-model="loginFields.user" placeholder="账号">
               <Icon type="ios-person-outline" slot="prepend"></Icon>
@@ -18,12 +18,18 @@
               <Icon type="ios-locked-outline" slot="prepend"></Icon>
               </Input>
             </FormItem>
-            <FormItem>
-              <Button type="primary" @click="handleSubmit('loginForm')">登 录</Button>
-            </FormItem>
+            <Button type="primary" @click="handleSubmit('loginForm')">登 录</Button>
           </Form>
-        </div>
+          <div id="qrcodeBox" v-show="isUseDD">
 
+          </div>
+          <p class="toggleLogin">
+            <a @click="useDD">
+              <Icon type="qr-scanner" v-if="!isUseDD"></Icon>
+              <Icon type="monitor" v-else></Icon>
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </transition>
@@ -44,13 +50,18 @@
   justify-content: center;
   align-items: center;
   .loginOuter {
+    overflow: hidden;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 360px;
-    height: 300px;
+    // height: 300px;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 0 10px #666;
+    .loginForm {
+      padding: 20px 0;
+    }
     .logoOuter {
       height: 70px;
       background-color: rgba(0, 0, 0, 0.5);
@@ -68,6 +79,22 @@
       button {
         width: 100%;
         font-size: 14px;
+      }
+    }
+    .toggleLogin {
+      background-color: #eee;
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      color: #aaa;
+      right: -35px;
+      bottom: -35px;
+      transform: rotateZ(-45deg);
+      text-align: center;
+      a {
+        display: inline-block;
+        transform: rotateZ(45deg);
+        font-size: 22px;
       }
     }
   }
@@ -114,8 +141,18 @@ export default {
             trigger: "blur"
           }
         ]
-      }
+      },
+      isUseDD: true
     };
+  },
+  mounted() {
+    var obj = DDLogin({
+      id: "qrcodeBox", //这里需要你在自己的页面定义一个HTML标签并设置id，例如<div id="login_container"></div>或<span id="login_container"></span>
+      goto: "",
+      style: "border:none;background-color:#FFFFFF;",
+      width: "320",
+      height: "300"
+    });
   },
   methods: {
     handleSubmit(name) {
@@ -128,6 +165,11 @@ export default {
         this.$Message.success("Success!");
         this.$router.push({ path: "/" });
       });
+    },
+    useDD() {
+      this.isUseDD = !this.isUseDD;
+      if (this.isUseDD) {
+      }
     }
   }
 };
